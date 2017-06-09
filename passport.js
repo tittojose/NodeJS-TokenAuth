@@ -57,7 +57,7 @@ passport.generateToken = function(req, res, next) {
   // console.log(req.user);
   req.token = req.token || {};
   req.token.accessToken = jwt.sign(
-    { id: req.user.id, username: req.user.username },
+    { username: req.user.username },
     config.secret,
     { expiresIn: 1200 }
   );
@@ -84,11 +84,13 @@ passport.sendToken = function(req, res) {
 };
 
 passport.validateRefreshToken = function(req, res, next) {
-  db.findUserOfToken(req.body, function(err, user) {
+ 
+  console.log('refresh token - ' + req.body.refreshToken);
+  db.findUserOfToken(req.body.refreshToken, function(err, user) {
     if (err) {
       next(err);
     } else {
-      req.user = user;
+      req.user = user[0];
       next();
     }
   });

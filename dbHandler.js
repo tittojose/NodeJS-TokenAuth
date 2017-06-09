@@ -36,8 +36,8 @@ exports.storeToken = function(refreshTokenInfo, cb) {
   );
 };
 
-exports.findUserOfToken = function(reqBody, cb) {
-  Client.find({ refreshToken: reqBody.refreshToken }, function(err, client) {
+exports.findUserOfToken = function(refreshToken, cb) {
+  Client.find({ refreshToken: refreshToken }, function(err, client) {
     if (err) {
       cb(err);
     } else {
