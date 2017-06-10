@@ -63,7 +63,7 @@ apiRouter.post("/todo", authenticate, function(req, res) {
       throw err;
     }
 
-    res.status(200).json({ result: "success", data: result });
+    res.status(200).json(result);
   });
 });
 
