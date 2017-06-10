@@ -46,13 +46,14 @@ apiRouter.get("/todo", authenticate, function(req, res) {
 
 apiRouter.post("/todo", authenticate, function(req, res) {
   var user = req.user;
+  var todoContent = req.body.todoContent;
   console.log("todo user - ");
   console.log(user);
 
   // res.status(200).json({ result: "success" });
 
   var todoItem = Todo({
-    title: "Third todo",
+    title: todoContent,
     user: user.username
   });
 
