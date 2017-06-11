@@ -67,6 +67,24 @@ apiRouter.post("/todo", authenticate, function(req, res) {
   });
 });
 
+apiRouter.delete("/todo/:todoid", authenticate, function(req, res) {
+  var user = req.user.username;
+  var todoId = req.params.todoid;
+  console.log("todo user - ");
+  console.log(user);
+
+  // res.status(200).json({ result: "success" });
+
+  Todo.findOneAndRemove({ user: user, _id :todoId }, function(err, result) {
+    if (err) {
+      res.status(500).json({ result: "error" });
+    } else {
+      res.status(200).json(result);
+    }
+  });
+
+});
+
 apiRouter.post(
   "/auth",
   passport.authenticate("local", { session: false }),
